@@ -1,0 +1,11 @@
+// Trigger: OpportunityStageTrigger
+// Purpose: Update "Next Action Date" when Opportunity Stage changes
+
+trigger OpportunityStageTrigger on Opportunity (before update) {
+    for(Opportunity opp : Trigger.new){
+        Opportunity oldOpp = Trigger.oldMap.get(opp.Id);
+        if(opp.StageName != oldOpp.StageName){
+            opp.Next_Action_Date__c = Date.today().addDays(7); // Example field
+        }
+    }
+}
